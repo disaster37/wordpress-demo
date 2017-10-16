@@ -1,0 +1,11 @@
+L'interface bridge docker0
+docker run --name test01 -d -ti debian /bin/bash
+docker inspect test01 | grep IPAddress
+docker run --rm -ti ianneub/network-tools /bin/bash
+ifconfig
+ping 172.17.0.2
+ping test01 (ko)
+
+docker run --rm -ti --link test01:db ianneub/network-tools /bin/bash
+ping test01 (ko)
+ping db

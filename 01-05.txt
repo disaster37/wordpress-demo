@@ -1,0 +1,19 @@
+# Le mal
+docker run -ti --name wordpress -e http_proxy=$http_proxy -e https_proxy=$https_proxy debian /bin/bash
+apt-get update
+apt-get install -y apache2 php curl
+curl -o wordpress.tar.gz -fSL "https://wordpress.org/wordpress-4.8.2.tar.gz"
+tar -xzf wordpress.tar.gz -C /var/www/html
+chown -R www-data:www-data /var/www/html
+
+
+docker commit wordpress webcenter/wordpress:bad
+docker images | grep bad
+docker push webcenter/wordpress:bad
+https://hub.docker.com/r/webcenter/wordpress/
+
+
+# Mieux (Dockerfile)
+docker build -t webcenter/wordpress:good .
+
+A chaque command, un layer est créé

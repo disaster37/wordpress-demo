@@ -1,0 +1,13 @@
+Les infos du CLI
+docker --version
+
+Les infos de l'Engine
+docker info
+
+On peut piloter plusieurs docker-engine via un CLI en surchargeant la varibale d'environnement DOCKER_HOST
+echo $DOCKER_HOST
+
+
+les commandes docker
+docker --help
+docker run --help
