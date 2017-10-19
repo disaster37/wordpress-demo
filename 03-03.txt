@@ -1,0 +1,5 @@
+# Le DNS
+Comment je fais pour résoudre les IP par nom logique de service ?
+
+- weave
+- consul

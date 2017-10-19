@@ -4,16 +4,16 @@ https://hub.docker.com/explore/
 On part d'un OS de base minimalist (pas de kernel, pas de driver, juste les outils pour installer les libs et l'applications)
 Le base OS est indépendant de l'hôte
 
-Debian
+# Debian
 docker run -ti --rm -e http_proxy=$http_proxy -e https_proxy=$https_proxy debian /bin/bash
 cat /etc/debian_version
 apt-get update && apt-get install -y curl
 
-Centos
+# Centos
 docker run -ti --rm -e http_proxy=$http_proxy -e https_proxy=$https_proxy centos /bin/bash
 cat /etc/redhat-release
 yum install -y curl
 
-Alpine
+# Alpine
 docker run -ti --rm -e http_proxy=$http_proxy -e https_proxy=$https_proxy alpine /bin/sh
 apk add --update curl

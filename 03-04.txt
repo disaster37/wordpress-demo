@@ -1,0 +1,6 @@
+Comment patager les infos de configuration entre les services (par exemple le nom, le user et le password de la db)
+
+Projet de référence:
+ - etcd (attention, pas de persistance de données)
+ - consul + registrator
+ 

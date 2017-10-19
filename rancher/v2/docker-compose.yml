@@ -1,0 +1,36 @@
+version: '2'
+volumes:
+  db_data:
+    driver: local
+  wordpress_data:
+    driver: local
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=wordpress
+    volumes:
+      - db_data:/var/lib/mysql
+  wordpress-lb:
+    image: rancher/lb-service-haproxy:v0.7.5
+    ports:
+      - 5003:5003/tcp
+    labels:
+      io.rancher.container.agent.role: environmentAdmin
+      io.rancher.container.create_agent: 'true'
+  wordpress:
+    image: wordpress:4.8.2-apache
+    environment:
+      - WORDPRESS_DB_PASSWORD=wordpress
+      - WORDPRESS_AUTH_KEY=df3552221b3bf0fe63e8371a8e79453fcb5c7b99
+      - WORDPRESS_SECURE_AUTH_KEY=d9d457cbf41dc36abe48c55a3d371001095ffd58
+      - WORDPRESS_LOGGED_IN_KEY=404f3c601ca1682b4f88124cb1b94704057b3fa5
+      - WORDPRESS_NONCE_KEY=5907856e162477ab52a747cf229abd08c52a513d
+      - WORDPRESS_AUTH_SALT=2e69e663375e37d59261bd950d6bc03573a2c5bc
+      - WORDPRESS_SECURE_AUTH_SALT=d7942ac8fa74cc27f25814126b8802600117db92
+      - WORDPRESS_LOGGED_IN_SALT=defa121534a6e97d869b028d79b0821eaeea9744
+      - WORDPRESS_NONCE_SALT=dc2ce89872228a0c05484c69a8b806cb74c5c1f3
+    links:
+      - db:mysql
+    volumes:
+      - wordpress_data:/var/www/html

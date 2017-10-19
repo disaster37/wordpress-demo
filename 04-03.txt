@@ -1,0 +1,32 @@
+# On y gagne quoi dans tout ça ?
+
+1. Installation / collaboration
+ - Le devellopeur utilise les mêmes image de la production, plus de rupture
+ - Tout le monde travaille avec les mêmes versions (dev et prod)
+ - L'effort d'installation est fait qu'une unique fois pour la création de l'image et non pas à chaque serveur et post de dev
+
+2 Backup / PRA / PCA
+ - L'OS devient volatile -> backup de l'OS ? PRA ? Il faut juste Docker Engine
+ - Le backup des applications est simplifié -> le registry (si on veut gagner du temps) et le git (fichier Dockerfile)
+ - Les données sont dans un stockage clairement identifiée donc plus simple à sauvegardé -> NAS
+ - On peut aisement déployer plusieurs instance que chaque service sur un noeud d'un DC différent (règle de sheduling)
+ - En cas de PRA, on déploie massivement les nodes, on restaure Rancher, Le registry, les data et c'est bon.
+ 
+3 Sécurité
+ - On peut détruite l'instance et repartir from scratch depuis l'image
+ - On peut mettre le container en RO
+ - On limite l'exposition et l'impact d'une faille de sécurité
+ - Cloisement par environnement au sens Rancher. On controlle ce qui est exposé
+ - Scan de faille au niveau du repository (projet clair)
+ - Signature des images pour valider le déploiement (notary)
+ - Analyze du traffic pour détection d'annomalie par apprentissage (neuvector)
+
+4 CI / CD
+ - C'est plus simple à mettre en oeuvre et à mutualiser les ressources
+
+5 Upgrade / Rolleback / Rolling Upgrade (pas d'interruption)
+ - C'est simple et pris en charge nativement par les orchestrateurs.
+ - Attention, il faut cependant maitriser la retro compatibilité des versions (schéma des bases de données)
+ - On peut facillement mettre en place le pattern blue / green
+
+6 Self service

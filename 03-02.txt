@@ -1,0 +1,10 @@
+# Basiquement
+ - On map les ports sur le node et on attaque l'adresse IP du node. Lourdeur pour gérer les ports déja utilisé.
+
+# La bonne manière
+ - (Utiliser les networks driver de Docker)
+   - Docker0 remplacé par un VPN IPsec (quand on est naté direct sur le net)
+   - Docker0 remplacé par une mesh VxLAN (quand on est sur un réseau de confiance)
+   - Chaque container obtient ça propre IP et peut communiquer avec les autres container
+   
+Les projets de références (historique ?) sont flannel et weave 

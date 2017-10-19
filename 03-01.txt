@@ -1,0 +1,4 @@
+# Les OS dédiés pour Docker (volatile)
+ - CoreOS (base chromeOS) : https://coreos.com/
+ - Atomic (base Centos) : https://www.projectatomic.io/
+ - RancherOS (tout est container)

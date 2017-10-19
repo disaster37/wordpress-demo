@@ -1,0 +1,12 @@
+# La persistance des données
+
+Il faut un stockage distribué entre les nodes
+
+  - NFS
+  - GlusterFS
+  - Ceph RDB
+  - S3
+  - infinit.sh
+  
+Soit en mountant le partage sur l'ensemble des nodes et en utilisant les mapping
+Soit en utilisant des plugins pour le storage driver

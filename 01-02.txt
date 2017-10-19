@@ -1,29 +1,29 @@
 Le Docker Engine, gère un registry d'image locale (une sorte de cache)
 
-Pour afficher les images
+# Pour afficher les images
 docker images
 
-Pour afficher les containers en cours d'exécution
+# Pour afficher les containers en cours d'exécution
 docker ps
 docker run --name test01 -ti -d debian /bin/bash
 docker ps
 docker stop test01
 docker ps
 
-Pour afficher tous les containers
+# Pour afficher tous les containers
 docker ps -a
 docker rm test01
 docker ps -a
 
-Le registry : par défault, le registry est docker.index.io
+# Le registry : par défault, le registry est docker.index.io
 https://hub.docker.com/_/debian/
 docker rmi debian:latest
 docker pull debian
 
-Si on veut prendre chez quay.io
+# Si on veut prendre chez quay.io
 https://quay.io/repository/dockerlibrary/debian?tab=info
 docker rmi quay.io/dockerlibrary/debian:latest
 docker pull quay.io/dockerlibrary/debian:latest
 
-Si on veut utiliser un repository privé, il faut utiliser
+# Si on veut utiliser un repository privé, il faut utiliser
 docker login

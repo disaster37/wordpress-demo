@@ -1,0 +1,7 @@
+# Petit focus sur l'intégration continue quand on est en full Docker
+L'idée :
+ est de construire des instances volatiles pour tester chaque niveau de l'application
+ d'utiliser les mêmes images (version) à chaque étape du déploiement
+ le devellopeur devrait utiliser les mêmes base image que la production et travailler en full docker quand il developpe
+-> Exemple avec Logmanagament
+-> https://gocd.webcenter.fr/go/pipelines/value_stream_map/logmanagement/115

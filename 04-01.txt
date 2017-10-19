@@ -1,0 +1,45 @@
+# Présentation sommaire de Rancher
+https://rancher.hm.dm.ad
+
+- Multitenant: chaque environnement est cloisonné
+- Gestion du réseau: VxLAN ou IpSEC
+- DNS interne: chaque service est resolvable par son nom (rand robin sur les container). Notion de link similaire à Docker. Propagation des variables d'environnement et ordre de démarrage.
+- Metadata: Lorchestrateur met à dispoision des information sur la topolgie de la stack. On peut aussi s'appuyer sur ETCD / Consul
+- Stockage persistant: soit on fait du mapping sur l'hôte, soit on utilise des plugins (ranher-nfs)
+- Scalabilité modifiable à volonté (rand rabin DNS par default ou déployement d'un LoadBalancer dynamique basé sur HaProxy)
+- Orchestrateur: Kubernetes 
+- Permet de piloter le provisonnement des noeuds.
+- HealthCheck
+
+Montrer les différentes entrées de l'interface Web
+
+# Point sur les métas données
+Exemple avec Minio: Sidekick et metadata : https://rancher.hm.dm.ad/env/1a7/apps/stacks/1st34/services/1s138/containers
+https://rancher.hm.dm.ad/env/1a7/apps/stacks/1st34/services/1s138/containers
+http://10.221.78.58:5001
+
+
+# Déploiement de Wordpress
+On déploie Wordpress depuis le catalog community
+ - port 5002
+ http://10.221.78.58:5002
+ http://10.221.78.58:5002/wp-admin/
+ 
+La même chose via rancher-cli mais avec l'image wordpress officiel
+cd v1
+-> Installation du CA SIHM
+mkdir /usr/local/share/ca-certificates/sihm
+sudo cp /workspace/ca/files/certs/* /usr/local/share/ca-certificates/sihm/
+sudo update-ca-certificates
+../rancher-compose-v0.12.5/rancher-compose --url https://rancher.hm.dm.ad --access-key 5FD271CADFE7D1E45D02 --secret-key bMegJS6jv46BLE7vctpCH1Z9VZMTiJxWKwJnWXYe --project-name wordpress2 up -d
+http://10.221.78.58:5003
+Voir dans rancher qu'on a bien deux container pour le service wordpress
+
+cd v2
+../rancher-compose-v0.12.5/rancher-compose --url https://rancher.hm.dm.ad --access-key 5FD271CADFE7D1E45D02 --secret-key bMegJS6jv46BLE7vctpCH1Z9VZMTiJxWKwJnWXYe --project-name wordpress2 up -d --force-upgrade --pull wordpress
+../rancher-compose-v0.12.5/rancher-compose --url https://rancher.hm.dm.ad --access-key 5FD271CADFE7D1E45D02 --secret-key bMegJS6jv46BLE7vctpCH1Z9VZMTiJxWKwJnWXYe --project-name wordpress2 scale wordpress=3
+http://10.221.78.58:5003
+
+Montrer la création de la stack aussi via l'interface web.
+
+http://rancher.com/docs/rancher/v1.6/en/cattle/upgrading/

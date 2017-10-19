@@ -1,0 +1,4 @@
+Pour porter la scalabilité, il y a deux patternes:
+ - round robin DNS (consul, weave)
+ - Load balancer TCP (haproxy)
+ - Reverse proxy : traefik, vulcand

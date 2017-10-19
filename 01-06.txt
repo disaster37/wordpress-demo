@@ -1,0 +1,4 @@
+https://imagelayers.io/?images=haron%2Fvim
+
+Chaque instruction du Dockerfile est un layer
+Réutiliser les même base image permet d'économiser de l'espace disque sur les nodes -> Par exemple une base image avec les tools SIHM + Java pour springboot

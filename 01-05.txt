@@ -1,19 +1,46 @@
 # Le mal
 docker run -ti --name wordpress -e http_proxy=$http_proxy -e https_proxy=$https_proxy debian /bin/bash
 apt-get update
-apt-get install -y apache2 php curl
+apt-get install -y apache2 php curl php-mysql
 curl -o wordpress.tar.gz -fSL "https://wordpress.org/wordpress-4.8.2.tar.gz"
 tar -xzf wordpress.tar.gz -C /var/www/html
 chown -R www-data:www-data /var/www/html
-
-
+curl -o /usr/bin/apache2-foreground https://raw.githubusercontent.com/docker-library/php/0bb4068bd639ba98631bc2999e0d20cae583ec00/5.6/jessie/apache/apache2-foreground
+chmod +x /usr/bin/apache2-foreground
 docker commit wordpress webcenter/wordpress:bad
 docker images | grep bad
+docker run --rm -p 80:80 webcenter/wordpress:bad apache2-foreground
+curl -L docker-dind/wordpress
 docker push webcenter/wordpress:bad
 https://hub.docker.com/r/webcenter/wordpress/
 
 
 # Mieux (Dockerfile)
-docker build -t webcenter/wordpress:good .
-
+docker build -t webcenter/wordpress:good . --build-arg http_proxy=$http_proxy --build-arg https_proxy=$https_proxy
+docker run --rm -p 80:80 webcenter/wordpress:good
+curl -L docker-dind/wordpress
+http://localhost/wordpress
 A chaque command, un layer est créé
+
+# La bonne manière
+https://github.com/docker-library/wordpress/blob/666c5c06d7bc9d02c71fd48a74911248be6f5a5b/php5.6/apache/Dockerfile
+-> On part d'une image apache2/php dans lequel on ajoute l'application.
+
+# Qualité du Dockerfile
+https://github.com/lukasmartinelli/hadolint
+docker run --rm -i sjourdan/hadolint - < Dockerfile
+
+# Versionning du Dockerfile, image, tag
+git add -A
+git commit -m "some enhance"
+git push
+git flow release start 1.0.1
+git flow release finish 1.0.1
+git push --all
+git push --tags
+https://hub.docker.com/r/webcenter/wordpress/builds/
+
+# Bonne pratique
+ - Prendre une base Alpine si possible (la plus légère, avec le moins de package, donc une exposition au faille limités)
+ - Utiliser s6-overlay au démarrage du container docker
+ - Utiliser confd pour configurer le service hébérgé dans le container

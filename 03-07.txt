@@ -1,0 +1,33 @@
+# L'orchestration
+
+Le but est de déployer le container sur l'hôte le plus approprié (plus de ressource disponible, gamme de serveurs, etc)
+
+  - Kubernetes
+  - Swarm
+  - Mesos -> Basé sur Kubernetes
+  - DEIS -> Basé sur Kubernetes
+  - Cattle - > Basé sur Kubernetes
+  
+Le problème de Kubernetes, c'est qu'il n'est pas centré sur Docker, c'est juste une brique de base.
+Du coup, il faut oublier le vocabulaire Docker pour faire du Kubernetes
+
+- Un pod correspond à un lot d'instance Docker qui sont colocalisés
+- ReplicationController: permet de gérer le cycle de vie des pods
+- Deployement : permet de définir un service au sens Docker (pod + ReplicationController + Upgrade / Downgrade)
+- Un service permet d'exposer les pods vers d'autre services où à l'extérieur du cluster (mapping de port). Il peut $etre également de type LoadBalancer et obtenir une IP publique sur GoogleCloud.
+- Ingress : C'est une mesh vers un Load Balancer externe
+- StateFulSets : chaque pods (instance docker) possède  sont propose volume persistant et sont prend nom unique persistant. C'est utile pour par exemple créer un cluster Elasticsearch ou Cassendra.
+- LivenessProbe: fait du healthcheck sur les pods
+Etc...
+
+Kubernetes traite toutes les problématique:
+ -> HA
+ -> Discovery (ETCD)
+ -> DNS / IP /LB
+ -> Secret
+ -> Storage
+ -> Scalabilité
+ -> Toute forme de déployement
+ -> API
+
+Exemple de déployement : https://gitlab.webcenter.fr/langoureaux-s/coreos/snippets/18

@@ -1,0 +1,12 @@
+docker-compose up
+
+https://hub.docker.com/_/mysql/
+https://hub.docker.com/_/wordpress/
+
+Points important:
+ - l'entrypoint (lien avec confd et s6-overlay) qui configure MySQL via les variables d'environnement
+ - Le DNS (on resout le container MySQL sous le nom mysql
+ - le link indique également l'odre de démarrage des services
+ - Le link semble être déprecier au dépend de depends_on et du network
+ 
+http://localhost

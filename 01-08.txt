@@ -1,0 +1,37 @@
+# Le mapping sur l'hôte
+docker run --rm -ti -v $PWD/data:/data debian /bin/bash
+cd /data
+touch dd
+rm dd
+
+# Un volume storage (en fonction du plugin il est local ou distant)
+Les données sont stockées dans /var/lib/docker
+docker volume create datatest
+docker run --rm -ti -v datatest:/data debian /bin/bash
+cd /data
+touch dd
+docker run --rm -ti -v datatest:/data debian /bin/bash
+ls /data
+docker volume ls
+docker volume rm datatest
+
+# Les volumes anonymes
+docker run --rm -ti -v /data debian /bin/bash
+cd /data
+touch dd
+docker run --rm -ti -v datatest:/data debian /bin/bash
+ls /data
+le volume est directement lié à l'id du container (n'est pas à utiliser pour de la persistance de données)
+
+# Un container de données (déprécié au profil des volumes storages)
+docker run --name data -v /data debian
+docker run --rm -ti --volumes-from data debian /bin/bash
+cd /data
+touch dd
+docker run --rm -ti --volumes-from data debian /bin/bash
+ls /data
+docker rm data
+docker run --name data -v /data debian
+docker run --rm -ti --volumes-from data debian /bin/bash
+ls /data
+
